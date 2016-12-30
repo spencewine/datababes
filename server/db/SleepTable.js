@@ -12,7 +12,7 @@ var Sleep = db.define('sleep', {
   },
   date:{
     type: Sequelize.DATE,
-    allowNull:false
+
   },
   startTime: {
   type: Sequelize.TIME

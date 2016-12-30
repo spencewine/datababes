@@ -3,11 +3,12 @@ var bodyParser = require('body-parser')
 // var morgan = require('morgan')
 
 var path = require('path')
-var routes = require('./routes/routes');
+var routes = require('./routes/index.js');
 var app = express();
 var {db} = require('./db/index')
 var createData = require('../seed')
 var Baby = require('./db/Baby')
+var session = require('express-session')
 
 
 
@@ -15,6 +16,12 @@ var Baby = require('./db/Baby')
 // app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extends: true}))
+
+app.use(session({
+  secret: "space odyssey 2001",
+  resave: false,
+  saveUnitialized: true
+}))
 
 
 app.use('/', express.static(path.join(__dirname,'../public')))
@@ -30,7 +37,7 @@ app.use(function(err, req, res, next){
   }
 })
 
-db.sync({force:true})
+db.sync({/*force:true*/})
 .then(function(){
     createData()
 })

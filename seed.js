@@ -10,37 +10,7 @@ var firstnameArr = ['John', 'Zeke', 'Nick', 'Waseem', 'Rebecca', 'Ryan', 'Daniel
 var lastNameArr =[ 'Bowie', 'Cohen', 'John', 'Jagger', 'McCartney', 'Wonder', 'Cave', 'Reed', 'Waits', 'Gaye', 'Franklin' ]
 
 
-
-var array = []
-
-for(var i =0; i<40; i++){
-  array.push(i)
-}
-
-function shuffle(array) {
-  var m = array.length, t, i;
-
-  // While there remain elements to shuffle…
-  while (m) {
-
-    // Pick a remaining element…
-    i = Math.floor(Math.random() * m--);
-
-    // And swap it with the current element.
-    t = array[m];
-    array[m] = array[i];
-    array[i] = t;
-  }
-  console.log("ARRAY", array)
-  return array;
-}
-
-
-
-
 const babyNameFunc = function(){
-
-
 
   var gender =""
   if(Math.random()<.5){
@@ -98,35 +68,72 @@ const parent = function(){
     middleName: firstnameArr[Math.ceil(Math.random()*100/firstnameArr.length)],
     lastName: lastNameArr[Math.ceil(Math.random()*100/lastNameArr.length)],
     dateOfBirth: 2016+'-'+Math.ceil(Math.random()*100/12)+'-'+Math.ceil((Math.random())*100/4),
+
     gender: gender
+  }
+}
+
+function parseTime(s) {
+   var c = s.split(':');
+   return parseInt(c[0]) * 60 + parseInt(c[1]);
+}
+
+const sleep = function(){
+
+  const hr = Math.ceil(Math.random()*19)
+  const min = Math.ceil(Math.random()*60)
+
+
+  const startTime = hr+":"+min+":00"
+  const endTime = (hr+Math.ceil(Math.random()*5))+":00"+":00"
+  const randomDate = 2016+'/'+Math.ceil(Math.random()*100/12)+'/'+Math.ceil((Math.random())*100/4)+" "
+
+  return {
+    sleepTime: parseTime(endTime)-parseTime(startTime),
+    date: 2016+'-'+Math.ceil(Math.random()*100/12)+'-'+Math.ceil((Math.random())*100/4),
+    startTime:  randomDate+startTime,
+    endTime:  randomDate+endTime
   }
 }
 
 
 
-
 //
 const callAllCreateFuncs = function(){
-for(var i = 0; i<40;i++){
-  Baby.create(babyNameFunc())
+for(var i = 0; i<4;i++){
+  let newBaby;
+  let counter =i+1
+  Baby.create(babyNameFunc({
+
+  }))
   .then(function(baby){
+    newBaby = baby;
     var feedObj = feed()
     var heightObj = heightTable()
     var weightObj = weightTable()
     var parentObj = parent()
     var diaperObj = diaper()
-    feedObj.babyId = baby.id
-    heightObj.babyId = baby.id
-    weightObj.babyId = baby.id
-    parentObj.babyId = baby.id
-    diaperObj.babyId = baby.id
+    var sleepObj = sleep()
+
+    feedObj.babyId = counter
+    heightObj.babyId = counter
+    weightObj.babyId = counter
+    parentObj.babyId = counter
+    parentObj.email = parentObj.firstName+"@"+parentObj.lastName+".com"
+    parentObj.password = parentObj.firstName
+    diaperObj.babyId = counter
+    sleepObj.babyId = counter
 
     Feeding.create(feedObj)
     Height.create(heightObj)
     Weight.create(weightObj)
-    Parent.create(parentObj)
+    Sleep.create(sleepObj)
     Diaper.create(diaperObj)
 
+    return Parent.create(parentObj)
+  })
+  .then(parent => {
+    return parent.addBaby(newBaby)
   })
   .catch(function(err){
     console.log(err)
