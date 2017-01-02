@@ -3,8 +3,7 @@ import {RECEIVE_PARENT} from '../constants'
 
 const initialParentState = {
   parent: {},
-
-
+  babies: []
 
 }
 
@@ -16,6 +15,7 @@ const newState = Object.assign({}, state)
 
      case RECEIVE_PARENT:
      newState.parent = action.parent;
+     newState.babies = action.babies
 
      break;
 
@@ -23,9 +23,11 @@ const newState = Object.assign({}, state)
 
 
      default:
+     console.log("IN DEFAULT STATE", state)
      return state
 
    }
+   console.log("IN NEWSTATE", newState)
    return newState
 
 }

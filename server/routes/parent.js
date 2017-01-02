@@ -3,6 +3,7 @@ var router = express.Router()
 var Parent = require('../db/Parent')
 var session = require('express-session')
 var Baby = require ('../db/Baby')
+var FamilyTable = require
 
 
 router.get('/', function(req,res,next){
@@ -37,6 +38,15 @@ router.get('/:parentId', function(req,res,next){
   })
 })
 
+router.get('/:parentId/babies', function(req,res,next){
+  console.log("HELLO, api get route1")
+  let parentId=req.params.parentId
+  Parent.getBabiesWhereParent(parentId)
+  .then(function(babies){
+    console.log("BABIES", babies)
+    res.json(babies)
+  })
+})
 
 
 

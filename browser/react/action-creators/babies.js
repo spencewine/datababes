@@ -3,6 +3,8 @@ import axios from 'axios'
 
 
 
+
+
 export const receiveBaby = (baby,weight,height,sleep,diaper,feeding) =>({
   type: RECEIVE_BABY,
   baby: baby,
@@ -12,14 +14,14 @@ export const receiveBaby = (baby,weight,height,sleep,diaper,feeding) =>({
   sleep: sleep,
   diapers: diaper
 
-
 })
 
 
 
 export const getBabyById = babyId => {
-  console.log("GET BABY BY ID")
+  console.log("GET BABY BY ID", babyId)
   return dispatch => {
+
     Promise
       .all([
         axios.get(`/api/baby/${babyId}`),
@@ -31,7 +33,7 @@ export const getBabyById = babyId => {
       ])
       .then(results => results.map(r => r.data))
       .then(results => {
-        console.log("THIS IS RESULTS BA", results)
+        console.log("THIS IS RESULTS in Action assadkjasdfkjl;", results)
         dispatch(receiveBaby(...results));
       })
       .catch(function(err){

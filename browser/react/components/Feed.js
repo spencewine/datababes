@@ -5,7 +5,7 @@ import {Bar} from 'react-chartjs-2'
 export default function (feed) {
 
 
-
+console.log("FEEEEEED", feed)
 var feedArr = feed.feed
 
 var dateArr = feedArr.map((feed,index)=>String(feed.dateTime.slice(0,10)))

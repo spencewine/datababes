@@ -7,11 +7,10 @@ export default baby => {
 
 
   const babyObj = baby.baby
-  const weightArr = baby.weight
-  const sleepArr = baby.sleep
-  const heightArr = baby.height
-  const feedArr = baby.feed
-  const diapersArr = baby.diapers
+
+
+
+
   const babyBirthday = String(babyObj.dateOfBirth)
 
   console.log("BABYPROFILE", babyBirthday.replace(/-/g, "/").slice(0,10) )

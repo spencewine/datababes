@@ -17,7 +17,6 @@ const Weight = require('./WeightTable')
 Parent.belongsToMany(Baby, { through: 'familyTable'})
 Baby.belongsToMany(Parent, {through: 'familyTable'});
 
-Diaper.belongsTo(Baby)
 
 Baby.hasMany(Feeding)
 
@@ -29,6 +28,12 @@ Baby.hasMany(Sleep)
 
 
 Baby.hasMany(Weight)
+
+Baby.hasMany(Diaper)
+
+// Object.keys(db).forEach(function(modelName) {
+//   console.log("MMMMMODEL NAME", db)
+// });
 
 
 

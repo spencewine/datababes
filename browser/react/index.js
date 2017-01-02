@@ -9,15 +9,11 @@ import BabyCreateContainer from './containers/BabyCreateContainer'
 import LoginFormContainer from './containers/LoginFormContainer'
 import BabyProfileContainer from './containers/BabyProfileContainer'
 import ParentProfileContainer from './containers/ParentProfileContainer'
-// import BabyProfile from './components/BabyProfile'
+import BabiesContainer from './containers/BabiesContainer'
+import BabyProfile from './components/BabyProfile'
+import Babies from './components/Babies'
 import {getBabyById} from './action-creators/babies'
 import {getParentById} from './action-creators/parent'
-
-
-
-
-
-
 
 
 const onBabyEnter = (nextRouterState) =>{
@@ -27,7 +23,6 @@ const onBabyEnter = (nextRouterState) =>{
 }
 
 const onParentEnter = (nextRouterState) =>{
-  console.log("NEXT ROUTER Parent", nextRouterState.params)
   const parentId = nextRouterState.params.parentId
   store.dispatch(getParentById(parentId))
 }
@@ -39,12 +34,12 @@ render(
       <Route path='/signup' component={SignUpFormContainer}/>
         <Route path='/enterbaby' component={BabyCreateContainer} />
         <Route path='/login' component={LoginFormContainer} />
-          <IndexRoute component={SignUpFormContainer}/>
-        </Route>
         <Route path='/baby/:babyId' component={BabyProfileContainer} onEnter={onBabyEnter}/>
-        <Route path='/parent/:parentId' component={ParentProfileContainer} onEnter={onParentEnter}/>
-
-
+          <Route path='/parent/:parentId' component={ParentProfileContainer} onEnter={onParentEnter}>
+            <Route path="babies" component={Babies}/>
+          </Route>
+          <IndexRoute component={SignUpFormContainer}/>
+      </Route>
     </Router>
   </Provider>,
   document.getElementById('app')

@@ -1,11 +1,11 @@
 import {combineReducers} from 'redux'
-import baby from './baby-reducer'
-import parent from './parent-reducer'
+import babyReducer from './baby-reducer'
+import parentReducer from './parent-reducer'
 
 
 console.log("IN ROOT REDUCER")
 export default combineReducers({
-  baby,
-  parent,
-  //reducer: reducer
+  baby: babyReducer,
+  parent: parentReducer
+
 })

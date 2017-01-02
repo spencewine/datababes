@@ -1,5 +1,6 @@
-const db = require('./db')
 var Sequelize = require('sequelize');
+const db = require('./db')
+const Baby = require('./Baby')
 
 var Parent = db.define("parent",{
   firstName: {
@@ -31,6 +32,24 @@ var Parent = db.define("parent",{
   }
 
 
+},{
+  classMethods: {
+    getBabiesWhereParent:  function(id){   //eagerloading
+      return Parent.findAll({
+        where: {
+          id: id
+        },
+        include: [{model: Baby}]
+      })
+      .then(function(babies){
+        console.log("BABIES IN MODEL", babies)
+        return babies
+      })
+      .catch(function(err){
+        console.log(err)
+      })
+    }
+  }
 })
 
 module.exports = Parent

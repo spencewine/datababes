@@ -3,9 +3,10 @@ import axios from 'axios'
 
 
 
-export const receiveParent = (parentObj) =>({
+export const receiveParent = (parent, babies) =>({
   type: RECEIVE_PARENT,
-  parent: parentObj
+  parent,
+  babies
 
 
 })
@@ -14,11 +15,16 @@ export const receiveParent = (parentObj) =>({
 
 export const getParentById = parentId => {
   return dispatch => {
-
-    axios.get(`/api/parent/${parentId}`)
-      .then(results => {
-        console.log("THIS IS RESULTS", results.data)
-        dispatch(receiveParent(results.data));
+    Promise.all([
+    axios.get(`/api/parent/${parentId}`),
+    axios.get(`/api/parent/${parentId}/babies`)
+  ])
+      .then(results => results.map(r =>{
+        console.log("RDATA",r.data)
+        return r.data}))
+        .then(results => {
+          console.log("THIS IS RESULTS in Parent Action", results)
+          dispatch(receiveParent(...results));
       })
       .catch(function(err){
         console.log(err)

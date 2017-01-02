@@ -1,6 +1,13 @@
-const db = require('./db')
+
 var Sequelize = require('sequelize');
+var db = require('./db')
 var Weight =require ('./WeightTable')
+var Height =require('./heightTable')
+var Sleep=require('./SleepTable')
+var Feed=require('./FeedingTable')
+var Diaper=require('./Diaper')
+var Parent=require('./Parent')
+
 
 var Baby = db.define("baby",{
   firstName: {
@@ -26,44 +33,99 @@ var Baby = db.define("baby",{
 
 },{
   classMethods: {
-    getBabyStats: function(babyId){
-      console.log("inside g")
-    //
-    //   return Baby.findOne({
-    //     where:{
-    //       id: babyId
-    //   }
-    // });
+    getBabyWeights: function(babyId){
+      console.log("inside getBabyStats")
 
-    return Baby.findall({
+    return Baby.findAll({
         where:{
-          babyId: babyId
-        }
+          id: babyId
+        },
+        include: [{model: Weight}]
+
+      })
+      .then(stats=>{
+        return stats
       });
+    },
+    getBabyHeights: function(babyId){
+      return Baby.findAll({
+          where:{
+            id: babyId
+          },
+          include: [{model: Height}]
 
-      // var height = db.heightTable.findAll({
-      //   where:{
-      //     babyId: babyId
-      //   }
-      // });
-      //
-      // var diaper = db.Diaper.findAll({
-      //   where:{
-      //     babyId: babyId
-      //   }
-      // });
-      //
-      // var sleep = db.SleepTable.findAll({
-      //   where:{
-      //     babyId: babyId
-      //   }
-      // });
+        })
+        .then(stats=>{
+          return stats
+        });
+      },
+      getBabySleeps: function(babyId){
+        return Baby.findAll({
+            where:{
+              id: babyId
+            },
+            include: [{model: Sleep}]
 
-      // console.log("Weight", weight)
-      // return Promise.all([baby, weight, height, diaper, sleep])
+          })
+          .then(stats=>{
+            return stats
+          });
+        },
+        getBabyEats: function(babyId){
+          return Baby.findAll({
+              where:{
+                id: babyId
+              },
+              include: [{model: Feed}]
+
+            })
+            .then(stats=>{
+              return stats
+            });
+          },
+          getBabyDiapers: function(babyId){
+            return Baby.findAll({
+                where:{
+                  id: babyId
+                },
+                include: [{model: Diaper}]
+
+              })
+              .then(stats=>{
+                return stats
+              });
+            },
+      //
+      // getSiblings: function(babyId){
+      //   console.log("THIS ID", babyId)
+      //
+      // return  Baby.find({
+      //     where:{
+      //       id: babyId
+      //     },
+      //     include:[{model: Parent}]
+      //   })
+      //   .then(function(parent){
+      //     // var parentId =parent[0].parents[0].id
+      //     return parent
+      //   // return Baby.findAll({
+      //   //   where: {
+      //   //     parentId: parent.id,
+      //   //     $and: {
+      //   //       id: {
+      //   //         $ne: Number(babyId)
+      //   //       }
+      //   //     }
+      //   //   },
+      //   //   include: [{model: Parent}]
+      //   // })
+      // })
+      //
+      // }
     }
-  }
-})
+  })
+
+
 
 //connect with Parents
 //

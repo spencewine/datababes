@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Line} from 'react-chartjs-2'
+
 
 
 export default function(weight){
 
 
-console.log("IN WEIGHT", weight)
+console.log("IN WEIGHT", weight.weight)
 var weightArr = weight.weight
 
 const weightData = {
@@ -39,17 +40,10 @@ const options ={
 return (
   <div className="baby">
     <div>
-      <h3>I'm In weight component</h3>
+       <h3>weight</h3>
     </div>
     <div className="weight"></div>
-    {
-    weightArr.map((weight,index) => (
-      <div key={index}>
-        <span>{ weight.weight}</span>
-      </div>
-    ))
 
-  }
   <div className="Chart">
     <Line data={weightData} width={200} height={200} options={options}/>
   </div>

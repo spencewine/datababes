@@ -31,65 +31,61 @@ router.get('/:babyId', function(req, res, next){
   .catch(next)
   })
 
+
 router.get('/:babyId/weight', function(req, res, next){
     var babyId = req.params.babyId
-  Weight.findAll({
-    where:{
-    babyId: babyId
-  }
-})
-  .then(function(weights){
-    res.json(weights)
+  Baby.getBabyWeights(babyId)
+  .then(function(baby){
+    console.log("WEIGHT ROUTE", baby[0].weights)
+    res.json(baby[0].weights)
   })
 })
 
 router.get('/:babyId/height', function(req, res, next){
     var babyId = req.params.babyId
-  Height.findAll({
-    where:{
-    babyId: babyId
-  }
-})
-.then(function(heights){
-  res.json(heights)
-})
+  Baby.getBabyHeights(babyId)
+  .then(baby=> {
+    console.log("HEIGHT ROUTE", baby)
+    return res.json(baby[0].heights)
+  })
 })
 
 
 router.get('/:babyId/sleep', function(req, res, next){
-    var babyId = req.params.babyId
-  Sleep.findAll({
-    where:{
-    babyId: babyId
-  }
-})
-.then(function(sleep){
-  res.json(sleep)
+  var babyId = req.params.babyId
+  Baby.getBabySleeps(babyId)
+  .then(function(baby){
+    console.log("SLEEP ROUTE", baby[0].sleep)
+  res.json(baby[0].sleep)
 })
 })
 
 router.get('/:babyId/diaper', function(req, res, next){
-    var babyId = req.params.babyId
-    Diaper.findAll({
-    where:{
-    babyId: babyId
-  }
-})
-.then(function(diaper){
-  res.json(diaper)
+  var babyId = req.params.babyId
+  Baby.getBabyDiapers(babyId)
+  .then(function(baby){
+    console.log("DIAPER ROUTE",baby[0].diapers)
+    res.json(baby[0].diapers)
 })
 })
 
 router.get('/:babyId/feed', function(req, res, next){
-    var babyId = req.params.babyId
-    Feed.findAll({
-    where:{
-    babyId: babyId
-  }
+  var babyId = req.params.babyId
+  Baby.getBabyEats(babyId)
+  .then(function(baby){
+    console.log("FEED ROUTE", baby[0])
+  res.json(baby[0].feeds)
 })
-.then(function(feed){
-  res.json(feed)
 })
+
+router.get('/:babyId/siblings', function(req, res, next){
+  var babyId = req.params.babyId
+  console.log("IN SIB ROUTE")
+  Baby.getSiblings(babyId)
+  .then(function(siblings){
+    res.json(siblings)
+  })
+  .catch(next)
 })
 
 
