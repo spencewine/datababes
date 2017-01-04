@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import store from '../store'
 import {connect} from 'react-redux';
 import ParentProfile from '../components/ParentProfile'
+import {deleteBaby} from '../action-creators/parent'
 
 
 
@@ -14,7 +15,11 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) =>{
-  return {}
+  return {
+    babyDelete: function(babyId, parentId){
+      dispatch(deleteBaby(babyId, parentId))
+    }
+  }
 
 }
 

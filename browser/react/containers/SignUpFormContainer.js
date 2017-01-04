@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {Link, hashHistory} from 'react-router'
 
 
 export default class SignUpFormContainer extends Component{
@@ -23,15 +24,15 @@ createUser(e){
     console.log("RES DATA",res.data)
     return  res.data
   })
-  .then(user => {console.log("USER", user)
-    this.setState({
-      email: "",
-      password: "",
-      confirmPassword: ""
-    })
-
+  .then(function(user){
+    hashHistory.push('/login')
   })
 
+  this.setState({
+    email: "",
+    password: "",
+    confirmPassword: ""
+    })
 }
 
 updateInput(field, event){

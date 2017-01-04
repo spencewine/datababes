@@ -7,25 +7,30 @@ export default (props) => {
 
 console.log("PARENT PROFILE PROPS", props.parent.parent)
 
-var parent = props.parent.parent
-var babies = props.parent.babies
+var parentObj = props.parent.parent
+var babiesObj = props.parent.babies || []
 
   return (
 
-
     <div className="parent">
-      <div>
-        <h3>{parent.firstName}</h3>
+      <div id="parentProfile" className="container-fluid">
+        <h3>Hi {parentObj.firstName}</h3>
           <ul className="nav nav-tabs">
-            <li><Link to={`/parent/${parent.id}/babies`}>My Babes</Link></li>
+            <li><Link to={`/parent/${parentObj.id}/babies`}>My Babes</Link></li>
+              <li><Link className="btn btn-primary btn-block" to={`/parent/${parentObj.id}/enterBaby`}>
+                <span className="glyphicon glyphicon-plus"></span> Add Baby
+            </Link></li>
+          <li><Link className="btn btn-warning btn-block" to={`/parent/${parentObj.id}/update`}>
+              <span className="glyphicon"></span>Update My Profile</Link></li>
           </ul>
+          <div className="col-xs-10">
           {
             props.children && React.cloneElement(props.children, Object.assign({}, props, {
-              babies: babies
-
-            }))
+              babies: babiesObj
+            })
+          )
           }
-
+        </div>
       </div>
     </div>
   );

@@ -3,23 +3,38 @@ import {Link} from 'react-router'
 
 
 export default function (props) {
- console.log("PROPS in BABY COMP", props.babies.babies)
- const babiesArr = props.babies.babies
+ console.log("PROPS in BABY COMP", props)
+ const babiesArr = props.parent.babies || []
+ const parentObj = props.parent.parent
+ const babyDelete= props.babyDelete
+
+
+// let deleteBaby;
+
+// if( ){
+//   deleteBaby = (<button type="warning" className="btn btn-danger btn-xs" onClick={console.log("CLICKED")}><span className="glyphicon glyphicon-remove-circle"></span></button)
+// }else{
+//   deleteBaby = ()
+// }
+
+
+
 
   return (
     <div>
-      <h3>{'your Babies'}</h3>
-      <ul>
+      <div className="container text-left">
+      <ul className="list-unstyled">
         {babiesArr.map((baby,index)=>{
           return(
-          <li key={index}><Link to={`/baby/${baby.id}`}>{baby.firstName}</Link></li>
-          )
-        }
+          <li key={index}>
+            <button type="warning" className="btn btn-danger btn-xs" onClick={()=>{babyDelete(baby.id, parentObj.id)}}><span>x</span></button>
+            <Link to={`parent/${parentObj.id}/babies/ ${baby.id}`}><span>{baby.firstName}</span></Link>
 
+          </li>
+          )}
         )}
-      </ul>
-
-
+       </ul>
+     </div>
     </div>
   )
 }

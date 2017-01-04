@@ -2,9 +2,6 @@ import {RECEIVE_BABY} from '../constants'
 import axios from 'axios'
 
 
-
-
-
 export const receiveBaby = (baby,weight,height,sleep,diaper,feeding) =>({
   type: RECEIVE_BABY,
   baby: baby,
@@ -16,12 +13,9 @@ export const receiveBaby = (baby,weight,height,sleep,diaper,feeding) =>({
 
 })
 
-
-
 export const getBabyById = babyId => {
   console.log("GET BABY BY ID", babyId)
   return dispatch => {
-
     Promise
       .all([
         axios.get(`/api/baby/${babyId}`),

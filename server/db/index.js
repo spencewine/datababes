@@ -18,18 +18,18 @@ Parent.belongsToMany(Baby, { through: 'familyTable'})
 Baby.belongsToMany(Parent, {through: 'familyTable'});
 
 
-Baby.hasMany(Feeding)
+Baby.hasMany(Feeding,{onDelete: 'cascade'})
 
 
-Baby.hasMany(Height)
+Baby.hasMany(Height,{onDelete: 'cascade'})
 
 
-Baby.hasMany(Sleep)
+Baby.hasMany(Sleep,{onDelete: 'cascade'})
 
 
-Baby.hasMany(Weight)
+Baby.hasMany(Weight,{onDelete: 'cascade'})
 
-Baby.hasMany(Diaper)
+Baby.hasMany(Diaper,{onDelete: 'cascade'})
 
 // Object.keys(db).forEach(function(modelName) {
 //   console.log("MMMMMODEL NAME", db)

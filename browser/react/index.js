@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, browserHistory, IndexRoute, hashHistory } from 'react-router';
+import { Router, Route, browserHistory, IndexRoute, hashHistory, IndexRedirect } from 'react-router';
 import {Provider} from 'react-redux'
 import axios from 'axios'
 import store from './store'
@@ -10,6 +10,8 @@ import LoginFormContainer from './containers/LoginFormContainer'
 import BabyProfileContainer from './containers/BabyProfileContainer'
 import ParentProfileContainer from './containers/ParentProfileContainer'
 import BabiesContainer from './containers/BabiesContainer'
+import UpdateProfileContainer from './containers/UpdateProfileContainer'
+import App from './components/App'
 import BabyProfile from './components/BabyProfile'
 import Babies from './components/Babies'
 import {getBabyById} from './action-creators/babies'
@@ -30,15 +32,16 @@ const onParentEnter = (nextRouterState) =>{
 render(
   <Provider store={store}>
     <Router history={hashHistory}>
-      <Route path='/'>
+      <Route path='/' component={App}>
       <Route path='/signup' component={SignUpFormContainer}/>
-        <Route path='/enterbaby' component={BabyCreateContainer} />
-        <Route path='/login' component={LoginFormContainer} />
-        <Route path='/baby/:babyId' component={BabyProfileContainer} onEnter={onBabyEnter}/>
-          <Route path='/parent/:parentId' component={ParentProfileContainer} onEnter={onParentEnter}>
+      <Route path ='/login' component={LoginFormContainer} />
+      <Route path='/parent/:parentId' component={ParentProfileContainer} onEnter={onParentEnter}>
+            <Route path='enterbaby' component={BabyCreateContainer} />
+            <Route path='update' component={UpdateProfileContainer}/>
             <Route path="babies" component={Babies}/>
+            <Route path='babies/:babyId' component={BabyProfileContainer} onEnter={onBabyEnter}/>
           </Route>
-          <IndexRoute component={SignUpFormContainer}/>
+          <IndexRedirect to='/login'/>
       </Route>
     </Router>
   </Provider>,

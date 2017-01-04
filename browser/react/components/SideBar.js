@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 
 export default function (props) {
-
+  console.log("SIDEBAR PROPS", props)
   const parent = props.parent;
 
   return (

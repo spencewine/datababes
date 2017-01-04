@@ -4,12 +4,7 @@ import React from 'react';
 
 export default baby => {
 
-
-
   const babyObj = baby.baby
-
-
-
 
   const babyBirthday = String(babyObj.dateOfBirth)
 
@@ -33,15 +28,12 @@ if(age<30){
 }
 
 
-
-
-
   return (
 
 
     <div className="baby">
       <div>
-        <h3>Baby {babyObj.firstName}, Im {age}  {ageUnit} old</h3>
+        <h3>Babe {babyObj.firstName} {babyObj.lastName}, I'm {age}  {ageUnit} old!</h3>
 
       </div>
       <div>{console.log("IN RETURN BABY PROF", baby)}</div>

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link, hashHistory} from 'react-router'
 import axios from 'axios';
 
 
@@ -13,6 +14,7 @@ export default class LoginFormContainer extends Component{
 
   login(e){
     e.preventDefault();
+    let parentObj;
     axios.post('/api/sessions', {
       email: this.state.email,
       password:this.state.password
@@ -21,6 +23,21 @@ export default class LoginFormContainer extends Component{
       console.log("RES DATA",res.data)
       return  res.data
     })
+    .then(parent=>{
+      console.log("PARENT IN LOGIN", parent)
+      hashHistory.push(`/parent/${parent.id}`)
+    })
+
+
+
+    this.setState({
+      email: "",
+      password: ""
+    })
+
+
+
+
   }
 
   updateInput(field, event){
@@ -28,6 +45,7 @@ export default class LoginFormContainer extends Component{
       [field]: event.target.value
     })
   }
+
 
 
 
@@ -56,6 +74,9 @@ export default class LoginFormContainer extends Component{
             </div>
             <button type="submit" className="btn btn-primary">Login</button>
           </form>
+          <div>
+            <Link to='/signup'>or Sign-up</Link>
+          </div>
         </div>
       )
 

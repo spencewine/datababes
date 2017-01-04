@@ -14,6 +14,14 @@ var Weight = db.define('weight', {
     type: Sequelize.DATE,
     allowNull:false
   }
+},{
+  instanceMethods:{
+    updateBabyWeight: function(babyId){
+      Weight.create({
+        
+      })
+    }
+  }
 })
 //conenct with Baby
 module.exports = Weight

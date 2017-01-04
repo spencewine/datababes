@@ -39,7 +39,9 @@ app.use(function(err, req, res, next){
 
 db.sync({/*force:true*/})
 .then(function(){
-    // createData()
+  for(var i=0;i<6;i++){
+    createData()
+  }
 })
   .then(function(){
     app.listen(1776, function(){

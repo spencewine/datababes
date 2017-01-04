@@ -1,4 +1,4 @@
-import {RECEIVE_PARENT} from '../constants'
+import {RECEIVE_PARENT, DELETE_BABY} from '../constants'
 
 
 const initialParentState = {
@@ -16,6 +16,9 @@ const newState = Object.assign({}, state)
      case RECEIVE_PARENT:
      newState.parent = action.parent;
      newState.babies = action.babies
+
+
+
 
      break;
 

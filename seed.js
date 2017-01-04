@@ -100,7 +100,7 @@ const sleep = function(){
 
 //
 const callAllCreateFuncs = function(){
-for(var i = 0; i<4;i++){
+for(var i = 0; i<16;i++){
   let newBaby;
   let counter =i+1
   Baby.create(babyNameFunc({
@@ -121,14 +121,17 @@ for(var i = 0; i<4;i++){
     parentObj.babyId = counter
     parentObj.email = parentObj.firstName+"@"+parentObj.lastName+".com"
     parentObj.password = parentObj.firstName
+    parentObj.parentId = counter
     diaperObj.babyId = counter
     sleepObj.babyId = counter
+
 
     Feeding.create(feedObj)
     Height.create(heightObj)
     Weight.create(weightObj)
     Sleep.create(sleepObj)
     Diaper.create(diaperObj)
+
 
     return Parent.create(parentObj)
   })
@@ -147,5 +150,3 @@ for(var i = 0; i<4;i++){
 
 
   module.exports = callAllCreateFuncs
-
-  // var iterator =[]

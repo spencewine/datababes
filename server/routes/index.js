@@ -12,6 +12,7 @@ module.exports = router
 
 router.use('/baby', require('./baby'));
 router.use('/parent', require('./parent'));
+router.use('/sessions', require('./sessions'))
 
 
 // Make sure this is after all of

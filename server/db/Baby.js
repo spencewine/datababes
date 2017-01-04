@@ -32,6 +32,7 @@ var Baby = db.define("baby",{
 
 
 },{
+
   classMethods: {
     getBabyWeights: function(babyId){
       console.log("inside getBabyStats")
@@ -95,33 +96,28 @@ var Baby = db.define("baby",{
                 return stats
               });
             },
-      //
-      // getSiblings: function(babyId){
-      //   console.log("THIS ID", babyId)
-      //
-      // return  Baby.find({
-      //     where:{
-      //       id: babyId
-      //     },
-      //     include:[{model: Parent}]
-      //   })
-      //   .then(function(parent){
-      //     // var parentId =parent[0].parents[0].id
-      //     return parent
-      //   // return Baby.findAll({
-      //   //   where: {
-      //   //     parentId: parent.id,
-      //   //     $and: {
-      //   //       id: {
-      //   //         $ne: Number(babyId)
-      //   //       }
-      //   //     }
-      //   //   },
-      //   //   include: [{model: Parent}]
-      //   // })
-      // })
-      //
-      // }
+            getBabiesWhereParent:  function(id){   //eagerloading
+              return Baby.findAll({
+                include: [{model: Parent,
+                  where: {
+                    id: id
+                  }
+                }]
+              })
+              .then(function(babies){
+
+                return babies
+              })
+              .catch(function(err){
+                console.log(err)
+              })
+            }
+          },
+    instanceMethods: {
+        getFullname: function() {
+          return [this.firstName, this.lastName].join(' ')
+        },
+
     }
   })
 
